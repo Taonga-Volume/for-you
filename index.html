@@ -17,6 +17,7 @@
       align-items: center;
       min-height: 100vh;
       overflow: hidden;
+      flex-direction: column;
     }
 
     /* Floating shimmer particles */
@@ -28,6 +29,7 @@
       border-radius: 50%;
       box-shadow: 0 0 12px rgba(255,150,220,0.9);
       animation: shimmer 8s linear infinite;
+      pointer-events: none;
     }
     @keyframes shimmer {
       from { transform: translateY(0) scale(1); opacity: 1; }
@@ -45,6 +47,8 @@
       box-shadow: 0 18px 45px rgba(0,0,0,0.12);
       text-align: center;
       animation: fadeIn 1.2s ease-out;
+      position: relative;
+      z-index: 1;
     }
     @keyframes fadeIn {
       0% { opacity: 0; transform: scale(0.8); }
@@ -55,6 +59,7 @@
       color: #ff6fb7;
       font-family: 'Playfair Display', serif;
       font-size: 2.4rem;
+      margin-bottom: 0.5rem;
     }
 
     p {
@@ -73,6 +78,7 @@
       cursor: pointer;
       transition: 0.3s;
       box-shadow: 0 6px 18px rgba(255,120,200,0.4);
+      margin: 5px;
     }
 
     button:hover {
@@ -95,6 +101,13 @@
       100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    /* Music controls container */
+    .music-controls {
+      margin-top: 15px;
+      z-index: 10;
+      position: relative;
+    }
+
     /* Mobile optimization */
     @media (max-width: 480px) {
       .card {
@@ -108,12 +121,6 @@
 </head>
 
 <body>
-  <!-- Music Controls -->
-    <div class="music-controls">
-        <button onclick="toggleMusic()">🎵 Play/Pause Music</button>
-    </div>
-
-  
   <!-- Background particles -->
   <script>
     for (let i = 0; i < 35; i++) {
@@ -126,11 +133,15 @@
     }
   </script>
 
+  <div class="music-controls">
+    <button onclick="toggleMusic()">🎵 Play/Pause Music</button>
+  </div>
+
   <!-- Gentle background music -->
   <audio id="bg-music" loop>
-        <source src="fireboy-need-you.mp3" type="audio/mp3">
-        Your browser does not support the audio tag.
-    </audio>
+    <source src="Fireboy DML - Need You (Audio).mp3" type="audio/mpeg" />
+    Your browser does not support the audio tag.
+  </audio>
 
   <div class="card">
     <h1>For Patson 💖</h1>
@@ -143,16 +154,29 @@
 
   <script>
     function showMessage() {
-      document.getElementById('message').style.display = 'block';
+      const msg = document.getElementById('message');
+      msg.style.display = 'block';
+      msg.style.opacity = 0;
+      let opacity = 0;
+      let pos = 25;
+      const anim = setInterval(() => {
+        if (opacity >= 1 && pos <= 0) clearInterval(anim);
+        opacity += 0.05;
+        pos -= 1;
+        msg.style.opacity = opacity;
+        msg.style.transform = `translateY(${pos}px) scale(${0.9 + (1 - opacity) * 0.1})`;
+      }, 20);
     }
-      let music = document.getElementById("bg-music");
 
-        function toggleMusic() {
-            if (music.paused) {
-                music.play();
-            } else {
-                music.pause();
-            }
+    let music = document.getElementById("bg-music");
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
   </script>
 
 </body>
