@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Patson & Taonga</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffe6f2 0%, #e8f0ff 100%);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Floating shimmer particles */
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 200, 230, 0.8);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(255,150,220,0.9);
+      animation: shimmer 8s linear infinite;
+    }
+    @keyframes shimmer {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to { transform: translateY(-110vh) scale(1.8); opacity: 0; }
+    }
+
+    /* Main card */
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(18px);
+      padding: 2.8rem;
+      width: 90%;
+      max-width: 540px;
+      border-radius: 35px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+      text-align: center;
+      animation: fadeIn 1.2s ease-out;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      color: #ff6fb7;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #444;
+      margin-bottom: 1.2rem;
+    }
+
+    button {
+      background: #ff7cc0;
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 40px;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 6px 18px rgba(255,120,200,0.4);
+    }
+
+    button:hover {
+      background: #ff5fb3;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255,120,200,0.6);
+    }
+
+    /* Hidden message with animation */
+    #message {
+      display: none;
+      font-size: 1.35rem;
+      color: #ff4fa3;
+      margin-top: 1.4rem;
+      animation: reveal 1s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes reveal {
+      0% { opacity: 0; transform: translateY(25px) scale(0.9); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Mobile optimization */
+    @media (max-width: 480px) {
+      .card {
+        padding: 2rem;
+        border-radius: 25px;
+      }
+      h1 { font-size: 2rem; }
+      p, button { font-size: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background particles -->
+  <script>
+    for (let i = 0; i < 35; i++) {
+      let particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.animationDuration = (6 + Math.random() * 6) + 's';
+      particle.style.opacity = Math.random();
+      document.body.appendChild(particle);
+    }
+  </script>
+
+  <!-- Gentle background music -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_d528fe3f57.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card">
+    <h1>For Patson 💖</h1>
+    <p>Tap the button below…</p>
+
+    <button onclick="showMessage()">Open Message</button>
+
+    <div id="message">Yes, Patson — I, Taonga, would love to be your partner. 💕</div>
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById('message').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
